@@ -1,0 +1,21 @@
+# This workflow will build and push Docker images into ghcr.io/eclipse-set
+name: 'Build and push Docker image'
+
+on: workflow_dispatch
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build & Push Rust
+        uses: docker/build-push-action@v4
+        with:
+          file: docker/rust/Dockerfile
+          push: true
+          tags: eclipse-set/rust:latest
+          secrets: ${{ env.GITHUB_TOKEN }}
+
