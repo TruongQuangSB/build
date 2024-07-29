@@ -1,6 +1,10 @@
 FROM python:3.12-bullseye
+
+RUN pip install poetry
 WORKDIR /docker/table-diff-handle
 COPY . .
+WORKDIR /docker/table-diff-handle
 RUN ls
-RUN cd docker/table-diff-handle && ls
-RUN pip install /table-diff-view-handle
+RUN poetry install
+
+ENTRYPOINT ["poetry", "run", "python", "-m", "table-diff-view-handle.__main__"]
