@@ -5,6 +5,7 @@ WORKDIR /docker/table-diff-handle
 COPY . .
 WORKDIR /docker
 WORKDIR /table-diff-handle
+COPY . .
 RUN ls
 RUN poetry install
 
