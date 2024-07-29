@@ -2,10 +2,7 @@ FROM python:3.12-bullseye
 
 RUN pip install poetry
 WORKDIR /docker/table-diff-handle
-COPY . .
-WORKDIR /docker
-WORKDIR /table-diff-handle
-COPY . .
+COPY . ./docker/table-diff-handle
 RUN ls
 RUN poetry install
 
