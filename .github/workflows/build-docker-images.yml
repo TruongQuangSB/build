@@ -24,10 +24,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build and push Github CLI image
+        uses: docker/build-push-action@5176d81f87c23d6fc96624dfdbcd9f3830bbe445 # v6.5.0
+        with:
+          context: .
+          file: ./docker/github-cli/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/truongquangsb/github-cli:latest
+
       - name: Build and push Table-Diff-View-handle
         uses: docker/build-push-action@5176d81f87c23d6fc96624dfdbcd9f3830bbe445 # v6.5.0
         with:
           context: .
           file: ./docker/table-diff-handle/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/truongquangsb/github-cli:latest
+          tags: ${{ env.REGISTRY }}/truongquangsb/table-diff-view:latest
