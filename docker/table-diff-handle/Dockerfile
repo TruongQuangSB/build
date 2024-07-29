@@ -3,4 +3,4 @@ WORKDIR /docker/table-diff-handle
 COPY . .
 RUN ls
 RUN cd docker/table-diff-handle && ls
-RUN pip install /table-diff-handle
+RUN pip install table-diff-handle
