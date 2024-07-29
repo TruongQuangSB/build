@@ -1,4 +1,6 @@
 FROM python:3.12-bullseye
-ADD . docker/table-diff-handle
+WORKDIR /docker/table-diff-handle
+COPY . .
 RUN ls
-RUN pip install docker/table-diff-handle
+RUN cd docker/table-diff-handle && ls
+RUN pip install /table-diff-handle
