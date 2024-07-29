@@ -1,7 +1,7 @@
 
 import re
 import requests
-from config import CONFIG
+from tablediffview.config import CONFIG
 
 GITHUB_API_ISSUE_URL = (
     f"{CONFIG.GITHUB_API_URL}/{CONFIG.GITHUB_REPO_OWNER}/{CONFIG.GITHUB_REPO_NAME}/issues"

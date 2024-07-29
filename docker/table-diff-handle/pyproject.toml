@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "table-diff-view-handle"
+name = "tablediffview"
 version = "0.1.0"
 description = ""
 authors = ["Quang Truong <truong.quang@scheidt-bachmann-st.de>"]

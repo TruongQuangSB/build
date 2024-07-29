@@ -1,7 +1,7 @@
 import csv
 import html2text
 import re
-from config import CONFIG
+from tablediffview.config import CONFIG
 from itertools import zip_longest
 from os import listdir
 from os.path import isfile

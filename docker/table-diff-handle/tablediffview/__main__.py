@@ -1,6 +1,6 @@
 import argparse
-from create_diff_markdown import create_diffs
-from github_api_handle import get_issue_number, remove_old_comments, create_issue_comment
+from tablediffview.create_diff_markdown import create_diffs
+from tablediffview.github_api_handle import get_issue_number, remove_old_comments, create_issue_comment
 
 def main():
     parser = argparse.ArgumentParser()
