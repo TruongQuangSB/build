@@ -43,7 +43,7 @@ jobs:
       - name: Build and push Update-Table-Reference
         uses: docker/build-push-action@5176d81f87c23d6fc96624dfdbcd9f3830bbe445 # v6.5.0
         with:
-          context: ./docker/table-diff-handle
+          context: ./docker/update-table-reference
           file: ./docker/update-table-reference/Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/truongquangsb/update-table-reference:latest
