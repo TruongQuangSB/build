@@ -30,9 +30,11 @@ def main():
         return
 
     diff_mds = create_diffs(diff_dir)
+    diff_md_dir = f"{diff_dir}/diff-md"
+    os.makedirs(diff_md_dir)
     for diff in diff_mds:
         with open(
-            f"{diff_dir}/diff-md/{diff.test_file}_{diff.table}_diff.csv",
+            f"{diff_md_dir}/{diff.test_file}_{diff.table}_diff.csv",
             "w",
             encoding="utf-8",
         ) as out:
