@@ -1,7 +1,7 @@
 from typing import Literal
 from requests import request, Response
 import urllib.parse
-from constant import CONSTANT
+from updatereference.constant import CONSTANT
 import time
 from io import BytesIO
 from datetime import datetime, timezone

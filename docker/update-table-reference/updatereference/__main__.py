@@ -1,6 +1,6 @@
 import argparse
-from github_api_request import get_artifact, get_head_branch_name
-from constant import CONSTANT
+from updatereference.github_api_request import get_artifact, get_head_branch_name
+from updatereference.constant import CONSTANT
 import os
 from git import Repo
 import shutil
