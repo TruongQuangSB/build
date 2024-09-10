@@ -1,0 +1,24 @@
+{
+  "total_count": 1,
+  "artifacts": [
+    {
+      "id": 1907679978,
+      "node_id": "MDg6QXJ0aWZhY3QxOTA3Njc5OTc4",
+      "name": "eclipse-set-snapshot-2359",
+      "size_in_bytes": 371511759,
+      "url": "https://api.github.com/repos/eclipse-set/set/actions/artifacts/1907679978",
+      "archive_download_url": "https://api.github.com/repos/eclipse-set/set/actions/artifacts/1907679978/zip",
+      "expired": false,
+      "created_at": "2024-09-09T07:24:01Z",
+      "updated_at": "2024-09-09T07:24:01Z",
+      "expires_at": "2024-09-16T07:23:41Z",
+      "workflow_run": {
+        "id": 10768359254,
+        "repository_id": 664594959,
+        "head_repository_id": 664594959,
+        "head_branch": "dependabot/npm_and_yarn/web/siteplan/ol-10.1.0",
+        "head_sha": "2aa3829f03b6f7ee70483b6771bf3a8701c1d3d2"
+      }
+    }
+  ]
+}

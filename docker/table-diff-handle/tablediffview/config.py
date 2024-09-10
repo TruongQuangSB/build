@@ -21,6 +21,7 @@ class Configuration:
     # Diff markdown header
     DIFF_MD_HEADER = "# Table difference view:"
     GITHUB_COMMENT_MAX_CHARACTER = 65536
+    UPDATE_REFERENCE_COMMAND = "/update-table-reference"
 
 
 CONFIG = Configuration()
