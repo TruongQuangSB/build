@@ -46,4 +46,4 @@ jobs:
           context: ./docker/table-diff-handle
           file: ./docker/update-table-reference/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/truongquangsb/updatereference:latest
+          tags: ${{ env.REGISTRY }}/truongquangsb/update-table-reference:latest

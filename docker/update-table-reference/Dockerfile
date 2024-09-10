@@ -1,5 +1,5 @@
 FROM python:3.12-bullseye
 
 
-ADD . /updatereference
-RUN pip install /updatereference
+ADD . /update-table-reference
+RUN pip install /update-table-reference
