@@ -65,10 +65,13 @@ def update_table_reference(new_reference_zip):
 
 def checkout_branch(remote: str, local_repo_path: str, branch_name: str):
     result_repo = None
+    print(f"Repo path: {local_repo_path}")
     # When the repository is already create/clone, then check if this repo have correct remote
     if os.path.exists(local_repo_path):
+        print("Exist local repo")
         result_repo = Repo(local_repo_path)
         if result_repo.remote().url != remote:
+            print("Diffrence remote repo")
             shutil.rmtree(local_repo_path, onexc=on_remove_error_hanlde)
             result_repo = None
 
