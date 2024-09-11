@@ -70,6 +70,7 @@ def checkout_branch(remote: str, local_repo_path: str, branch_name: str):
     if os.path.exists(local_repo_path):
         print("Exist local repo")
         result_repo = Repo(local_repo_path)
+        print("Current repo remote: " + result_repo.remote().url)
         if result_repo.remote().url != remote:
             print("Diffrence remote repo")
             shutil.rmtree(local_repo_path, onexc=on_remove_error_hanlde)
