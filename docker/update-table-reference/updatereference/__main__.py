@@ -73,17 +73,13 @@ def checkout_branch(remote: str, local_repo_path: str, branch_name: str):
             result_repo = None
 
     if result_repo == None:
+        print(f"Clone {remote}")
         result_repo = Repo.clone_from(remote, local_repo_path)
-        result_repo.config_writer().set_value(
-            "user", "name", CONSTANT.GITHUB_USER
-        ).release()
-        result_repo.config_writer().set_value(
-            "user", "email", CONSTANT.GITHUB_USER_EMAIL
-        ).release()
     if result_repo == None:
         raise SystemError
     result_repo.remotes.origin.pull()
     result_repo.git.checkout(branch_name)
+    print(result_repo.git.status())
     return result_repo
 
 
