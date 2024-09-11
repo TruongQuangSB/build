@@ -3,7 +3,8 @@ import os
 
 class Constanst:
     GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-    GITHUB_USER = os.environ.get("GITHUB_USER")
+    GITHUB_USER = os.environ.get("GITHUB_USER", "eclipse-set-bot")
+    GITHUB_USER_EMAIL = os.environ.get("GITHUB_USER_EMAIL", "set-bot@eclipse.org")
     GITHUB_API_URL = "https://api.github.com/repos"
 
     SET_REPO = "eclipse-set/set"
