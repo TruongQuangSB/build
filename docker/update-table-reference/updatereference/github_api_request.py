@@ -60,7 +60,7 @@ def get_run(run_id: str):
     get_run_response = github_api_request(
         method="get", access_path=f"actions/runs/{run_id}"
     )
-    if get_run_response != 200:
+    if get_run_response.status_code != 200:
         print(f"Can't get run with id: {run_id}")
         raise SystemError(get_run_response.json())
     return get_run_response.json()
