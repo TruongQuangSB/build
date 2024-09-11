@@ -81,7 +81,6 @@ def checkout_branch(remote: str, local_repo_path: str, branch_name: str):
         result_repo = Repo.clone_from(remote, local_repo_path)
     if result_repo == None:
         raise SystemError
-    result_repo.remotes.origin.pull()
     result_repo.git.checkout(branch_name)
     print(result_repo.git.status())
     return result_repo
