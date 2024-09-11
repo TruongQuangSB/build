@@ -77,6 +77,6 @@ def remove_old_comments(issue_number: str):
             if comment_text.startswith(CONFIG.DIFF_MD_HEADER):
                 delete_response = requests.delete(f'{url}/{comment["id"]}', headers=REQUEST_HEADER)
                 if delete_response.status_code != 204:
-                    print(f"Delete comment with number: \"{comment["id"]}\" failed")
+                    print(f"Delete comment with number: \"{url}/{comment["id"]}\" failed")
                     raise SystemError(delete_response.json())
             
