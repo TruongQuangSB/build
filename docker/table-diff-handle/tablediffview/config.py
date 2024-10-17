@@ -8,7 +8,7 @@ class Configuration:
     # Highlight color for old data
     OLD_DATA_COLOR = "gold"
     # Github repository
-    GITHUB_REPO = "eclipse-set/set"
+    GITHUB_REPO = "truongquangsb/set"
     # Github Token
     GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
     # Github api url
