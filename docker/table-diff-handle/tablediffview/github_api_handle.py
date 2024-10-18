@@ -80,7 +80,7 @@ def __get_issue_body_content(run_id: str, pr_number: str = None):
         raise SystemError(f"Can't find run with id: {run_id}")
     run_data = get_run_response.json()
     link_to_diff_artifact = f"- Download Diff Artifact at [run#{run_data['run_number']}]({run_data["html_url"]})"
-    return "\n".join(link_to_pr, update_command_text, link_to_diff_artifact)
+    return "\n".join((link_to_pr, update_command_text, link_to_diff_artifact))
 
 
 def create_issue_comment(
