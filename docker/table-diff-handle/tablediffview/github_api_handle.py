@@ -74,7 +74,7 @@ def __get_issue_body_content(run_id: str, pr_number: str = None):
         f"- Table reference can update via by commenting `{update_table_command}`.\n"
     )
     get_run_response = __github_api_resquest(
-        method="get", access_path=f"acttions/runs/{run_id}"
+        method="get", access_path=f"actions/runs/{run_id}"
     )
     if get_run_response.status_code != 200:
         raise SystemError(f"Can't find run with id: {run_id}")
