@@ -33,7 +33,7 @@ def update_table_reference(new_reference_zip, table_to_update: str = None):
                 for zip_content in zip_file.filelist:
                     if zip_content.filename.endswith("current.csv") and (
                         not table_to_update
-                        or zip_content.filename.startswith(table_to_update.lower())
+                        or table_to_update.lower() in zip_content.filename
                     ):
                         new_zip.writestr(
                             zip_content.filename.replace(
