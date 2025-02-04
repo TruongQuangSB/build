@@ -65,7 +65,7 @@ runs:
                     continue
                 source_path = os.path.join(root, file)
                 parent_dest_path = os.path.join(reference_path, os.path.basename(root))
-                dest_path = f'{parent_dest_path}/{file.replace("_current.csv", "_reference.csv")}'
+                dest_path = f'{parent_dest_path}/{file.replace(\"_current.csv\", \"_reference.csv\")}'
                 if not os.path.exists(parent_dest_path):
                     os.makedirs(parent_dest_path)
                 # Datei verschieben
