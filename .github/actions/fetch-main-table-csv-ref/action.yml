@@ -6,7 +6,7 @@ inputs:
     required: true
 
 env:
-  REFERENCE_PATH: java/org.eclipse.set.swtbot/test_res/table_reference
+  REFERENCE_PATH: java/bundles/org.eclipse.set.swtbot/test_rest/table_reference
 
 runs:
   using: "composite"
