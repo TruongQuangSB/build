@@ -51,12 +51,14 @@ runs:
     
     - name: Update current table csv
       shell: bash
+      working-directory: ${{ github.workspace }}
       run: |
+        ls
         python -c "
         import os
         import shutil
 
-        reference_path = "${{ github.workspace }}/java/bundles/org.eclipse.set.swtbot/test_rest/table_reference"
+        reference_path = "java/bundles/org.eclipse.set.swtbot/test_rest/table_reference"
         for root, _, files in os.walk('main-reference-csv'):
             for file in files:
                 if file.endswith('_reference.csv'):
