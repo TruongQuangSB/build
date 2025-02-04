@@ -1,10 +1,10 @@
 name: Fetch Main Table CSV Reference
 description: 'Fetches the currently table csv of the main build'
 inputs:
-  GH_TOKEN:
+  token:
     description: 'GitHub Token'
     required: true
-  REPO:
+  repo:
     description: 'Repository to fetch the table csv from'
     required: true
 
