@@ -15,8 +15,8 @@ runs:
       shell: bash
       run: |
         LAST_MAIN_BUILD=$(gh run list --repo ${{ inputs.repo }} --workflow "Build SET" --branch main --json number,databaseId --jq '([.[].number] | max) as $m | .[] | select(.number == $m)')
-        LAST_BUILD_NUMBER=$(echo $LAST_MAIN_BUILD | jq -r '.number').trim()
-        LAST_BUILD_ID=$(echo $LAST_MAIN_BUILD | jq -r '.databaseId').trim()
+        LAST_BUILD_NUMBER=$(echo $LAST_MAIN_BUILD | jq -r '.number')
+        LAST_BUILD_ID=$(echo $LAST_MAIN_BUILD | jq -r '.databaseId')
         echo "Last Build Number & ID: $LAST_BUILD_NUMBER, $LAST_BUILD_ID"
         echo "LAST_BUILD_NUMBER=$LAST_BUILD_NUMBER" >> $GITHUB_ENV
         echo "LAST_BUILD_ID=$LAST_BUILD_ID" >> $GITHUB_ENV
@@ -28,6 +28,8 @@ runs:
         name: "table-csv-${{ env.LAST_BUILD_NUMBER }}"
         run-id: ${{ env.LAST_BUILD_ID }}
         path: main-reference-csv
+        github-token: ${{ env.GITHUB_TOKEN }}
+        repository: ${{ github.repository }}
       continue-on-error: true
     
     - name: Trigger Main Build If Not Found
