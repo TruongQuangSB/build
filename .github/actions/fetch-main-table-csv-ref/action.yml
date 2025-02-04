@@ -10,6 +10,8 @@ inputs:
 
 env:
   REFERENCE_PATH: java/org.eclipse.set.swtbot/test_res/table_reference
+  GITHUB_TOKEN: ${{ inputs.token }}
+
 jobs:
   fetch-main-table-csv-ref:
     runs-on: ubuntu-latest
@@ -17,14 +19,12 @@ jobs:
     steps:
     - name: Get last Build Number
       run: |
-        LAST_MAIN_BUILD=$(gh run list --repo ${{inputs.REPO}} --workflow "Build SET" --branch main --json number,databaseID --jq '([.[].number] | max) as $m | .[] | select(.number == $m)')
+        LAST_MAIN_BUILD=$(gh run list --repo ${{ inputs.repo }} --workflow "Build SET" --branch main --json number,databaseID --jq '([.[].number] | max) as $m | .[] | select(.number == $m)')
         LAST_BUILD_NUMBER=$(echo $LAST_MAIN_BUILD | jq -r '.number')
         LAST_BUILD_ID=$(echo $LAST_MAIN_BUILD | jq -r '.databaseID')
         echo "Last Build Number & ID: $LAST_BUILD_NUMBER, $LAST_BUILD_ID"
         echo "LAST_BUILD_NUMBER=$LAST_BUILD_NUMBER" >> $GITHUB_ENV
         echo "LAST_BUILD_ID=$LAST_BUILD_ID" >> $GITHUB_ENV
-      env:
-        GH_TOKEN: ${{ inputs.GH_TOKEN }}
     
     - name: Download Main Table CSV Reference
       id: download-artifact
@@ -38,9 +38,9 @@ jobs:
       if: steps.download-artifact.outcome == 'failure'
       run: |
         echo "Rerun main build ${{ env.LAST_BUILD_ID }}"
-        gh run rerun ${{ env.LAST_BUILD_ID }} --repo ${{inputs.REPO}}
+        gh run rerun ${{ env.LAST_BUILD_ID }} --repo ${{ inputs.repo }}
         echo "Waiting for the build to finish..."
-        gh run watch ${{ env.LAST_BUILD_ID }} --repo ${{inputs.REPO}} --interval 60
+        gh run watch ${{ env.LAST_BUILD_ID }} --repo ${{ inputs.repo }} --interval 60
     
     - name: Redownload Main Table CSV Reference
       if: steps.download-artifact.outcome == 'failure'
