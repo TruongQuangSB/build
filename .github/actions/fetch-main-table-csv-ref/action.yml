@@ -56,7 +56,7 @@ runs:
         import os
         import shutil
 
-        reference_path = os.getenv('REFERENCE_PATH')
+        reference_path = "java/bundles/org.eclipse.set.swtbot/test_rest/table_reference"
         for root, _, files in os.walk('main-reference-csv'):
             for file in files:
                 if file.endswith('_reference.csv'):
