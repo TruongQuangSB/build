@@ -40,7 +40,6 @@ runs:
     
     - name: Redownload Main Table CSV Reference
       if: steps.download-artifact.outcome == 'failure'
-      id: download-artifact
       uses: actions/download-artifact@v4
       with:
         name: "table-csv-${{ env.LAST_BUILD_NUMBER }}"
