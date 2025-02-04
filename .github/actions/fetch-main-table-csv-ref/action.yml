@@ -1,4 +1,4 @@
-name: Fetch Main Table CSV Reference
+name: 'Fetch Main Table CSV Reference'
 description: 'Fetches the currently table csv of the main build'
 inputs:
   token:
@@ -7,14 +7,15 @@ inputs:
   repo:
     description: 'Repository to fetch the table csv from'
     required: true
+
 env:
   REFERENCE_PATH: java/org.eclipse.set.swtbot/test_res/table_reference
   GITHUB_TOKEN: ${{ inputs.token }}
-jobs:
-  fetch-main-table-csv-ref:
-    runs-on: ubuntu-latest
-    if: github.workflow == "Build SET" && github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') && !startsWith(github.ref, 'refs/release/')
-    steps:
+
+runs:
+  using: "composite"
+  if: github.workflow == 'Build SET' && github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') && !startsWith(github.ref, 'refs/release/')
+  steps:
     - name: Get last Build Number
       run: |
         LAST_MAIN_BUILD=$(gh run list --repo ${{ inputs.repo }} --workflow "Build SET" --branch main --json number,databaseID --jq '([.[].number] | max) as $m | .[] | select(.number == $m)')
