@@ -7,11 +7,9 @@ inputs:
   repo:
     description: 'Repository to fetch the table csv from'
     required: true
-
 env:
   REFERENCE_PATH: java/org.eclipse.set.swtbot/test_res/table_reference
   GITHUB_TOKEN: ${{ inputs.token }}
-
 jobs:
   fetch-main-table-csv-ref:
     runs-on: ubuntu-latest
