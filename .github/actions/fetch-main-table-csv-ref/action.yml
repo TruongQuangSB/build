@@ -1,0 +1,72 @@
+name: Fetch Main Table CSV Reference
+description: 'Fetches the currently table csv of the main build'
+inputs:
+  GH_TOKEN:
+    description: 'GitHub Token'
+    required: true
+  REPO:
+    description: 'Repository to fetch the table csv from'
+    required: true
+
+env:
+  REFERENCE_PATH: java/org.eclipse.set.swtbot/test_res/table_reference
+jobs:
+  fetch-main-table-csv-ref:
+    runs-on: ubuntu-latest
+    if: github.workflow == "Build SET" && github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') && !startsWith(github.ref, 'refs/release/')
+    steps:
+    - name: Get last Build Number
+      run: |
+        LAST_MAIN_BUILD=$(gh run list --repo ${{inputs.REPO}} --workflow "Build SET" --branch main --json number,databaseID --jq '([.[].number] | max) as $m | .[] | select(.number == $m)')
+        LAST_BUILD_NUMBER=$(echo $LAST_MAIN_BUILD | jq -r '.number')
+        LAST_BUILD_ID=$(echo $LAST_MAIN_BUILD | jq -r '.databaseID')
+        echo "Last Build Number & ID: $LAST_BUILD_NUMBER, $LAST_BUILD_ID"
+        echo "LAST_BUILD_NUMBER=$LAST_BUILD_NUMBER" >> $GITHUB_ENV
+        echo "LAST_BUILD_ID=$LAST_BUILD_ID" >> $GITHUB_ENV
+      env:
+        GH_TOKEN: ${{ inputs.GH_TOKEN }}
+    
+    - name: Download Main Table CSV Reference
+      id: download-artifact
+      use: actions/download-artifact@v4
+      with:
+        name: "table-csv-${{ env.LAST_BUILD_NUMBER }}"
+        path: main-reference-csv
+      continue-on-error: true
+    
+    - name: Trigger Main Build If Not Found
+      if: steps.download-artifact.outcome == 'failure'
+      run: |
+        echo "Rerun main build ${{ env.LAST_BUILD_ID }}"
+        gh run rerun ${{ env.LAST_BUILD_ID }} --repo ${{inputs.REPO}}
+        echo "Waiting for the build to finish..."
+        gh run watch ${{ env.LAST_BUILD_ID }} --repo ${{inputs.REPO}} --interval 60
+    
+    - name: Redownload Main Table CSV Reference
+      if: steps.download-artifact.outcome == 'failure'
+      id: download-artifact
+      use: actions/download-artifact@v4
+      with:
+        name: "table-csv-${{ env.LAST_BUILD_NUMBER }}"
+        path: main-reference-csv
+    
+    - name: Update current table csv
+      run: |
+        python -c "
+        import os
+        import shutil
+
+        reference_path = os.getenv('REFERENCE_PATH')
+        for root, _, files in os.walk('main-reference-csv'):
+            for file in files:
+                if file.endswith('_reference.csv'):
+                    continue
+                source_path = os.path.join(root, file)
+                parent_dest_path = os.path.join(reference_path, os.path.basename(root))
+                dest_path = f'{parent_dest_path}/{file.replace('_current.csv', '_reference.csv')}'
+                if not os.path.exists(parent_dest_path):
+                    os.makedirs(parent_dest_path)
+                # Datei verschieben
+                shutil.move(source_path, dest_path)
+                print(f'Moved: {source_path} -> {dest_path}')
+        "
