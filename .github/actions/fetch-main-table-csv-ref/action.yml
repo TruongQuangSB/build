@@ -26,6 +26,7 @@ runs:
       uses: actions/download-artifact@v4
       with:
         name: "table-csv-${{ env.LAST_BUILD_NUMBER }}"
+        run-id: ${{ env.LAST_BUILD_ID }}
         path: main-reference-csv
       continue-on-error: true
     
@@ -43,6 +44,7 @@ runs:
       uses: actions/download-artifact@v4
       with:
         name: "table-csv-${{ env.LAST_BUILD_NUMBER }}"
+        run-id: ${{ env.LAST_BUILD_ID }}
         path: main-reference-csv
     
     - name: Update current table csv
