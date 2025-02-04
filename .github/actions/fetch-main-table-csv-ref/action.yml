@@ -43,7 +43,7 @@ runs:
       if: steps.download-artifact.outcome == 'failure'
       uses: actions/download-artifact@v4
       with:
-        name: "table-csv-${{ env.LAST_BUILD_NUMBER }}"
+        name: table-csv-${{ env.LAST_BUILD_NUMBER }}
         run-id: ${{ env.LAST_BUILD_ID }}
         path: main-reference-csv
     
