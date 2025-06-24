@@ -92,7 +92,7 @@ jobs:
 
       - name: Check license vetting status (and ask for review if requested)
         id: check-license-vetting
-        uses: eclipse-set/build/.github/actions/check-dependencies@main
+        uses: truongquangsb/build/.github/actions/check-dependencies@main
         with:
           request-review: ${{ env.request-review }}
           project-id: ${{ inputs.projectId }}
