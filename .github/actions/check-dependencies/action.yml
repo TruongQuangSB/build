@@ -30,7 +30,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup Java
-      uses: truongquang/build/.github/actions/setup-java@main
+      uses: truongquangsb/build/.github/actions/setup-java@main
 
     - id: license-check-with-review-request
       shell: bash {0} # do not fail-fast
