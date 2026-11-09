@@ -1,7 +1,7 @@
 import argparse
 import os
-from create_diff_markdown import create_diffs
-from github_api_handle import (
+from tablediffview.create_diff_markdown import create_diffs
+from tablediffview.github_api_handle import (
     get_issue_number,
     remove_old_comments,
     create_issue_comment,
@@ -28,15 +28,15 @@ def main():
     diff_dir_list = collect_diff_dir(parent_dir, diff_dir_name)
 
     if not diff_dir_list:
-        # close_diff_issues(branch_name)
+        close_diff_issues(branch_name)
         return
-    # issue_number = get_issue_number(request_args)
-    # if not issue_number:
-    #     raise SystemError(
-    #         f"Pull Request/Issue number for branch: '{branch_name}' not found"
-    #     )
+    issue_number = get_issue_number(request_args)
+    if not issue_number:
+        raise SystemError(
+            f"Pull Request/Issue number for branch: '{branch_name}' not found"
+        )
 
-    # remove_old_comments(issue_number)
+    remove_old_comments(issue_number)
     diff_mds = []
     for diff_dir in diff_dir_list:
         diff_mds.extend(create_diffs(diff_dir))
@@ -54,7 +54,7 @@ def main():
             encoding="utf-8",
         ) as out:
             out.write(diff.md)
-        # create_issue_comment(diff.test_file, diff.table, diff.md, issue_number)
+        create_issue_comment(diff.test_file, diff.table, diff.md, issue_number)
 
 def collect_diff_dir(parent_dir: str, diff_dir_name: str, diff_dir_list: list[str] = []) -> list[str]:
     if not os.path.exists(parent_dir) or not os.path.isdir(parent_dir) or not os.listdir(parent_dir):
