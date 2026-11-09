@@ -51,4 +51,15 @@ def update_table_reference(new_reference_zip, table_to_update: str = None):
         raise SystemError()
 
 
+def collect_table_reference_dirs(table_reference_dir_list: list[str] = []) -> list[str]:
+    repo_path = CONSTANT.REPO_LOCAL_PATH
+    for sub_dir in os.listdir(repo_path):
+        sub_dir_path = f"{repo_path}/{sub_dir}"
+        if os.path.exists(sub_dir_path) and os.path.isdir(sub_dir_path):
+            if sub_dir == CONSTANT.TABLE_REFERENCE_DIR_NAME:
+                table_reference_dir_list.append(sub_dir_path)
+            else:
+                collect_table_reference_dirs(table_reference_dir_list)
+    return table_reference_dir_list
+
 main()

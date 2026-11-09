@@ -1,6 +1,6 @@
 import re
 import requests
-from tablediffview.config import CONFIG
+from config import CONFIG
 from functools import reduce
 from requests import request, Response
 from typing import Literal

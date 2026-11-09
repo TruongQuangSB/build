@@ -14,6 +14,7 @@ class Constanst:
         "java/bundles/org.eclipse.set.swtbot/test_res/table_reference"
     )
     TABLE_DIFF_ISSUE_TITLE_TRAIL = "- Tables different"
+    TABLE_REFERENCE_DIR_NAME = "table_reference"
 
 
 CONSTANT = Constanst()
