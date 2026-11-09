@@ -45,7 +45,7 @@ def update_table_reference(new_reference_zip, table_to_update: str = None, table
                     raise SystemError("The target table no need to update reference")
                 for new_zip_content in new_zip.filelist:
                     for table_reference_dir in table_reference_dirs:
-                        if os.path.exists(table_reference_dir):
+                        if os.path.exists(f"{table_reference_dir}/{new_zip_content.filename}"):
                             new_zip.extract(new_zip_content, table_reference_dir)
                             print(f"Update table reference: {new_zip_content.filename}")
     except:

@@ -9,7 +9,7 @@ from tablediffview.github_api_handle import (
     close_diff_issues_of_closed_pr,
     requestargs,
 )
-
+import shutil
 
 def main():
     parser = argparse.ArgumentParser()
@@ -38,12 +38,15 @@ def main():
 
     remove_old_comments(issue_number)
     diff_mds = []
-    for diff_dir in diff_dir_list:
-        diff_mds.extend(create_diffs(diff_dir))
-   
     diff_md_dir = f"{parent_dir}/diff-md"
     if not os.path.exists(diff_md_dir):
         os.makedirs(diff_md_dir)
+    
+    for diff_dir in diff_dir_list:
+        for child in os.listdir(diff_dir):
+            shutil.copytree(f"{diff_dir}/{child}", f"{diff_md_dir}/{child}", dirs_exist_ok=True)
+        diff_mds.extend(create_diffs(diff_dir))
+   
     for diff in diff_mds:
         subDir = f"{diff_md_dir}/{diff.test_file}"
         if not os.path.exists(subDir):
