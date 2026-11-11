@@ -4,8 +4,11 @@ inputs:
   repo:
     description: "Execute repository"
     required: true
-env:
-  REFERENCE_PATH: java/bundles/org.eclipse.set.swtbot/test_rest/table_reference
+  parentDir:
+    description: "The directory, which contains all table test"
+    required: true
+  referenceDir:
+    description: "The name of directory, which contains the references"
 
 runs:
   using: "composite"

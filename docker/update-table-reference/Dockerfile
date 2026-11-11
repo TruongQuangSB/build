@@ -4,14 +4,14 @@ ADD . /update-table-reference
 RUN pip install /update-table-reference
 
 # Install Github CLI
-RUN set -ex; \
-    apt-get update ; \
+RUN set -ex;
+    apt-get update;
     apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
-	zip \
- 	unzip \
-        git; \
+	    zip \
+ 	    unzip \
+        git;
     rm -rf /var/lib/apt/lists/*
 
 ENV GITHUB_CLI_VERSION 2.32.1
