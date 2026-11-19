@@ -10,8 +10,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--issueNumber", required=True, type=str)
     parser.add_argument("--commentBody", required=True, type=str)
+    parser.add_argument("--osgiBundlePath", required=True, type=str)
     issue_number = str(parser.parse_args().issueNumber)
     commentBody = str(parser.parse_args().commentBody)
+    osgi_bundle_path = str(parser.parse_args().osgiBundlePath)
     issue_info = get_issue_info(issue_number)
     if not issue_info or not issue_info.branch_name:
         raise SystemError("Can't find relevant pull request/branch")
@@ -21,7 +23,7 @@ def main():
     if not new_reference_zip:
         raise SystemError("Can't download the new reference artifact")
     table_to_update = commentBody.replace("/update-table-reference", "").strip()
-    table_reference_dirs = collect_table_reference_dirs()
+    table_reference_dirs = collect_table_reference_dirs(osgi_test_bundle_path=osgi_bundle_path)
     update_table_reference(new_reference_zip, table_to_update, table_reference_dirs)
 
 
@@ -52,9 +54,11 @@ def update_table_reference(new_reference_zip, table_to_update: str = None, table
         raise SystemError()
 
 
-def collect_table_reference_dirs(table_reference_dir_list: list[str] = [], repo_path: str = None) -> list[str]:
+def collect_table_reference_dirs(table_reference_dir_list: list[str] = [], repo_path: str = None, osgi_test_bundle_path: str = None) -> list[str]:
+    if not osgi_test_bundle_path:
+        return []
     if not repo_path:
-        repo_path = f"{CONSTANT.REPO_LOCAL_PATH}/{CONSTANT.OSGI_TEST_BUNDLES_PATH}"
+        repo_path = f"{CONSTANT.REPO_LOCAL_PATH}/{osgi_test_bundle_path}"
     for sub_dir in os.listdir(repo_path):
         sub_dir_path = f"{repo_path}/{sub_dir}"
         if os.path.exists(sub_dir_path) and os.path.isdir(sub_dir_path):
